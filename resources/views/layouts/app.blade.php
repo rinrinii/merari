@@ -18,11 +18,11 @@
 
 <body class="bg-gray-100 text-gray-900 font-[Inter]">
 
-<x-navbar />
+<x-navbar :minimal="$minimal ?? false" />
 
 <main>
     @yield('content')
 </main>
 
-<x-footer />
+<x-footer :minimal="$minimal ?? false" />
 </html>

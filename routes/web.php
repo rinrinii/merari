@@ -10,3 +10,6 @@ Route::get('/', function () {
 Route::get('/test-layout', function(){
     return view('test-layout');
 });
+
+Route::view('/login', 'auth.login')->name('login');
+Route::view('/register', 'auth.register')->name('register');
