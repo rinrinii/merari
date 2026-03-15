@@ -41,7 +41,7 @@
                         <a href="/" class="hover:text-amber-600">Home</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-amber-600">About Us</a>
+                        <a href="{{ route('about') }}" class="hover:text-amber-600">About Us</a>
                     </li>
                     <li>
                         <a href="{{ route('faqs') }}" class="hover:text-amber-600">FAQs</a>

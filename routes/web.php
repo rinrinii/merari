@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 // route for faqs
 Route::view('/faqs', 'faqs')->name('faqs');
+Route::view('/about', 'about')->name('about');
 
 
 // temporary product data, to be replaced with database data in the future
