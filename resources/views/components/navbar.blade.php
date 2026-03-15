@@ -1,6 +1,6 @@
 @props(['minimal'=> false])
 
-<nav class="sticky top-0 bg-white border-b border-gray-200">
+<nav class="sticky top-0 z-50 bg-white border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-6">
         <div class="relative flex items-center h-16">
 
@@ -58,5 +58,5 @@
         </div>
     </el-disclosure>
     @endif
-    
+
 </nav>
