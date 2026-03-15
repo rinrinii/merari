@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('homepage');
 })->name('home');
 
+// route for faqs
+Route::view('/faqs', 'faqs')->name('faqs');
 
 
 // temporary product data, to be replaced with database data in the future

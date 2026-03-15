@@ -18,7 +18,7 @@
             <div class="hidden lg:flex space-x-6">
                 <a href="#" class="text-black hover:text-amber-600 hover:underline font-medium">SHOP</a>
                 <a href="#" class="text-black hover:text-amber-600 hover:underline font-medium">ABOUT US</a>
-                <a href="#" class="text-black hover:text-amber-600 hover:underline font-medium">FAQS</a>
+                <a href="{{ route('faqs') }}" class="text-black hover:text-amber-600 hover:underline font-medium">FAQS</a>
             </div>
             @endif
 
@@ -54,7 +54,7 @@
         <div class="px-6 py-3 space-y-2">
             <a href="#" class="block text-gray-700 hover:text-amber-600 font-medium">SHOP</a>
             <a href="#" class="block text-gray-700 hover:text-amber-600 font-medium">ABOUT US</a>
-            <a href="#" class="block text-gray-700 hover:text-amber-600 font-medium">FAQS</a>
+            <a href="{{ route('faqs') }}" class="block text-gray-700 hover:text-amber-600 font-medium">FAQS</a>
         </div>
     </el-disclosure>
     @endif
