@@ -1,6 +1,6 @@
 @props(['name', 'price', 'image', 'slug'])
 
-<a href="{{ route('product.show', $slug) }}" class="block group">
+<a href="{{ route('product.show', ['slug' => $slug]) }}" class="block group">
 
     <div class="text-center transition-transform duration-300 ease-out group-hover:-translate-y-1">
 

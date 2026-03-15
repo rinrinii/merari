@@ -49,26 +49,26 @@
     </h2>
 
     @php
-        $products = [
-            [
-                'name' => 'Sanrio Pompompurin Bracelet',
-                'price' => 90,
-                'image' => 'images/products/productimg_1.png',
-                'slug' => 'pompompurin'
-            ],
-            [
-                'name' => 'Sanrio Cinnamoroll Bracelet',
-                'price' => 90,
-                'image' => 'images/products/productimg_2.png',
-                'slug' => 'cinnamoroll'
-            ],
-            [
-                'name' => 'Sanrio My Melody Bracelet',
-                'price' => 90,
-                'image' => 'images/products/productimg_3.png',
-                'slug' => 'mymelody'
-            ],
-        ];
+    $products = [
+        [
+            'name' => 'Sanrio Pompompurin Bracelet',
+            'price' => 90,
+            'image' => 'images/products/productimg_1.png',
+            'slug' => 'pompompurin-bracelet'
+        ],
+        [
+            'name' => 'Sanrio Cinnamoroll Bracelet',
+            'price' => 95,
+            'image' => 'images/products/productimg_2.png',
+            'slug' => 'cinnamoroll-bracelet'
+        ],
+        [
+            'name' => 'Sanrio My Melody Bracelet',
+            'price' => 90,
+            'image' => 'images/products/productimg_3.png',
+            'slug' => 'mymelody-bracelet'
+        ],
+    ];
     @endphp
 
     <div class="grid md:grid-cols-3 gap-8">
