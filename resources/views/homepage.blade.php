@@ -17,7 +17,7 @@
                 handmade bracelets and accessories
             </p>
 
-            <a href="#"
+            <a href="{{ route('shop') }}"
                class="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800">
                SHOP NOW
             </a>
@@ -48,39 +48,16 @@
         Product Spotlight
     </h2>
 
-    @php
-    $products = [
-        [
-            'name' => 'Sanrio Pompompurin Bracelet',
-            'price' => 90,
-            'image' => 'images/products/productimg_1.png',
-            'slug' => 'pompompurin-bracelet'
-        ],
-        [
-            'name' => 'Sanrio Cinnamoroll Bracelet',
-            'price' => 95,
-            'image' => 'images/products/productimg_2.png',
-            'slug' => 'cinnamoroll-bracelet'
-        ],
-        [
-            'name' => 'Sanrio My Melody Bracelet',
-            'price' => 90,
-            'image' => 'images/products/productimg_3.png',
-            'slug' => 'mymelody-bracelet'
-        ],
-    ];
-    @endphp
-
     <div class="grid md:grid-cols-3 gap-8">
 
         @foreach($products as $product)
 
-            <x-product-card
-                :name="$product['name']"
-                :price="$product['price']"
-                :image="$product['image']"
-                :slug="$product['slug']"
-            />
+        <x-product-card
+            :name="$product->name"
+            :price="$product->base_price"
+            :image="$product->image"
+            :slug="$product->slug"
+        />
 
         @endforeach
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $product['name'])
+@section('title', $product->name)
 
 @section('content')
 
@@ -10,7 +10,7 @@
 
         <!-- PRODUCT IMAGE -->
         <div>
-            <img src="{{ asset(!empty($product['image']) ? $product['image'] : 'images/default-product.jpg') }}"
+            <img src="{{ asset(!empty($product->image) ? $product->image : 'images/default-product.jpg') }}"
                 class="rounded-lg shadow-md w-full">
         </div>
 
@@ -18,17 +18,17 @@
         <div>
 
             <h1 class="text-xl font-semibold">
-                {{ $product['name'] }}
+                {{ $product->name }}
             </h1>
 
             <!-- CATEGORY BADGE -->
             <span class="inline-block mt-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
-                {{ $product['category'] }}
+                {{ $product->category }}
             </span>
 
             <!-- PRICE -->
             <p id="displayed-price" class="text-3xl font-bold mt-3">
-                ₱{{ number_format($product['variations'][0]['price'], 2) }}
+                ₱{{ number_format($product->variations->first()->price, 2) }}
             </p>
 
 
@@ -44,11 +44,10 @@
                     <select id="variation" name="variation" required class="w-full border rounded px-3 py-2 text-sm" onchange="updatePrice()">
                         <option value="" disabled selected>Choose a variation</option>
 
-                        @foreach($product['variations'] as $variation)
+                        @foreach($product->variations as $variation)
 
-                        <option value="{{ $variation['name'] }}"
-                                data-price="{{ $variation['price'] }}">
-                            {{ $variation['name'] }}
+                        <option value="{{ $variation->name }}" data-price="{{ $variation->price }}">
+                            {{ $variation->name }}
                         </option>
 
                         @endforeach
@@ -100,7 +99,7 @@
 
     <p class="text-gray-600 mb-4">Welcome to Merari!</p>
 
-    <p class="text-gray-600 mb-6">Sanrio Characters Inspired Chained bracelets</p>
+    <p class="text-gray-600 mb-6"> {{ $product->description }}</p>
 
     <p class="text-gray-600 mb-10">
     When choosing Custom Size variation, make sure to message us your preferred
@@ -116,7 +115,7 @@
             <h3 class="font-bold mb-3">Product Information</h3>
 
             <ul class="text-gray-600 text-sm space-y-2 list-disc ml-4">
-                <li>The bracelets are handmade.</li>
+                <li>The accessories are handmade.</li>
                 <li>When we don't have the right amount of materials, there may be adjustments to the bracelet. However, we will inform you
                     first before making it.
                 </li>
