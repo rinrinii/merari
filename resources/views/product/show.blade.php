@@ -41,15 +41,13 @@
                         Variation
                     </label>
 
-                    <select id="variation"
-                            class="w-full border rounded px-3 py-2 text-sm"
-                            onchange="updatePrice()">
-
-                        <option hidden>Choose a variation</option>
+                    <select id="variation" name="variation" required class="w-full border rounded px-3 py-2 text-sm" onchange="updatePrice()">
+                        <option value="" disabled selected>Choose a variation</option>
 
                         @foreach($product['variations'] as $variation)
 
-                        <option data-price="{{ $variation['price'] }}">
+                        <option value="{{ $variation['name'] }}"
+                                data-price="{{ $variation['price'] }}">
                             {{ $variation['name'] }}
                         </option>
 
@@ -65,15 +63,14 @@
                         Quantity
                     </label>
 
-                    <select class="w-full border rounded px-3 py-2 text-sm">
+                    <select name="quantity" required class="w-full border rounded px-3 py-2 text-sm">
+                        <option value="" disabled selected>Choose order quantity</option>
 
-                        <option hidden>Choose order quantity</option>
-
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
 
                     </select>
                 </div>
@@ -82,9 +79,14 @@
 
 
         <!-- ADD TO CART -->
-        <button class="mt-5 w-full bg-gray-900 text-white py-2 rounded hover:bg-black transition">
-            Add to Cart
-        </button>
+        <form method="POST" action="{{ route('cart.add') }}" class="mt-6">
+            @csrf
+
+            <button type="submit"
+                class="w-full bg-[#0B1A33] text-white py-3 rounded-lg hover:bg-[#09142A] transition">
+                Add to Cart
+            </button>
+        </form>
 
     </div>
 

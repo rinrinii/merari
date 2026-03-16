@@ -16,14 +16,21 @@ $minimal = true;
             Login to your account
         </h2>
 
-        <form method="POST" action="#">
+        @if ($errors->any())
+            <div class="mb-4 p-3 rounded bg-red-100 text-red-700 text-sm">
+                {{ $errors->first() }}
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('login.store') }}">
             @csrf
 
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700">Email</label>
 
-                <input type="email" name="email" required
+                <input type="email" name="email" value="{{ old('email') }}" required
                 class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-green-500 focus:ring-green-500">
+
             </div>
 
             <div class="mb-4">

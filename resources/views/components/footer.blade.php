@@ -37,15 +37,19 @@
                 <h4 class="font-semibold mb-3">Links</h4>
 
                 <ul class="space-y-2 text-gray-600 text-sm">
+
                     <li>
                         <a href="/" class="hover:text-amber-600">Home</a>
                     </li>
+
                     <li>
                         <a href="{{ route('about') }}" class="hover:text-amber-600">About Us</a>
                     </li>
+
                     <li>
                         <a href="{{ route('faqs') }}" class="hover:text-amber-600">FAQs</a>
                     </li>
+
                 </ul>
             </div>
 

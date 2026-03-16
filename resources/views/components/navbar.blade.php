@@ -32,16 +32,41 @@
             @if(!$minimal)
             <!-- RIGHT SIDE -->
             <div class="ml-auto flex items-center space-x-4">
-                <!-- PROFILE (ALL SCREENS) -->
-                <a href="/profile" class="flex items-center">
-                    <img src="{{ asset('images/profile-placeholder.jpg') }}" class="h-8 w-8 rounded-full hover:ring-2 hover:ring-amber-500 transition">
-                </a>
-                <!-- CART (DESKTOP TEXT) -->
-                <a href="#" class="hidden lg:block text-black hover:text-amber-600 hover:underline text-sm font-medium">MY CART</a>
-                <!-- CART ICON (MOBILE) -->
-                <a href="#" class="lg:hidden text-gray-700 hover:text-amber-600 text-xl">
-                    <i class="bi bi-cart"></i>
-                </a>
+
+                @guest
+                    <!-- LOGIN -->
+                    <a href="{{ route('login') }}"
+                    class="text-sm font-medium text-black hover:text-amber-600 hover:underline">
+                        LOGIN
+                    </a>
+
+                    <!-- REGISTER -->
+                    <a href="{{ route('register') }}"
+                    class="text-sm font-medium text-black hover:text-amber-600 hover:underline">
+                        REGISTER
+                    </a>
+                @endguest
+
+
+                @auth
+                    <!-- PROFILE -->
+                    <a href="{{ route('profile') }}" class="flex items-center">
+                        <img src="{{ auth()->user()->profile_photo ? asset('storage/'.auth()->user()->profile_photo) : asset('images/profile-placeholder.jpg') }}"
+                            class="h-8 w-8 rounded-full object-cover hover:ring-2 hover:ring-amber-500 transition">
+                    </a>
+
+                    <!-- CART -->
+                    <a href="{{ route('cart') }}"
+                    class="hidden lg:block text-black hover:text-amber-600 hover:underline text-sm font-medium">
+                        MY CART
+                    </a>
+
+                    <a href="{{ route('cart') }}"
+                    class="lg:hidden text-gray-700 hover:text-amber-600 text-xl">
+                        <i class="bi bi-cart"></i>
+                    </a>
+                @endauth
+
             </div>
             @endif
 
