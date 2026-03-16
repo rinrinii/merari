@@ -69,7 +69,7 @@
                 alt="Team Member"
                 class="rounded-xl shadow-md mb-4">
 
-            <h3 class="font-semibold text-lg">Cody</h3>
+            <h3 class="font-semibold text-lg">Bobbie Gregorio, AKA Cody</h3>
 
             <p class="text-gray-500 text-sm">
                 CEO, Professional Kibble Nibbler, Full-Time Doggo
