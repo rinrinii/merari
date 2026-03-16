@@ -6,6 +6,13 @@
 
 <div class="max-w-6xl mx-auto px-6 py-12">
 
+    <!-- SUCCESS NOTIFICATION -->
+    @if(session('success'))
+    <div class="mb-6 p-4 bg-green-100 text-green-700 rounded-lg">
+        {{ session('success') }}
+    </div>
+    @endif
+
     <div class="grid md:grid-cols-2 gap-12 items-start">
 
         <!-- PRODUCT IMAGE -->
@@ -21,7 +28,7 @@
                 {{ $product->name }}
             </h1>
 
-            <!-- CATEGORY BADGE -->
+            <!-- CATEGORY -->
             <span class="inline-block mt-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
                 {{ $product->category }}
             </span>
@@ -31,61 +38,79 @@
                 ₱{{ number_format($product->variations->first()->price, 2) }}
             </p>
 
+            <!-- ADD TO CART FORM -->
+            <form method="POST" action="{{ route('cart.add') }}" class="mt-6">
+                @csrf
 
-            <!-- OPTIONS -->
-            <div class="grid grid-cols-2 gap-4 mt-6">
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                <!-- VARIATION -->
-                <div>
-                    <label class="block text-sm mb-1 text-gray-600">
-                        Variation
-                    </label>
+                <!-- OPTIONS -->
+                <div class="grid grid-cols-2 gap-4">
 
-                    <select id="variation" name="variation" required class="w-full border rounded px-3 py-2 text-sm" onchange="updatePrice()">
-                        <option value="" disabled selected>Choose a variation</option>
+                    <!-- VARIATION -->
+                    <div>
+                        <label class="block text-sm mb-1 text-gray-600">
+                            Variation
+                        </label>
 
-                        @foreach($product->variations as $variation)
+                        <select id="variation"
+                                name="variation"
+                                required
+                                class="w-full border rounded px-3 py-2 text-sm"
+                                onchange="updatePrice()">
 
-                        <option value="{{ $variation->name }}" data-price="{{ $variation->price }}">
-                            {{ $variation->name }}
-                        </option>
+                            <option value="" disabled selected>
+                                Choose a variation
+                            </option>
 
-                        @endforeach
+                            @foreach($product->variations as $variation)
 
-                    </select>
+                            <option value="{{ $variation->name }}"
+                                    data-price="{{ $variation->price }}">
+
+                                {{ $variation->name }}
+
+                            </option>
+
+                            @endforeach
+
+                        </select>
+                    </div>
+
+                    <!-- QUANTITY -->
+                    <div>
+                        <label class="block text-sm mb-1 text-gray-600">
+                            Quantity
+                        </label>
+
+                        <select name="quantity"
+                                required
+                                class="w-full border rounded px-3 py-2 text-sm">
+
+                            <option value="" disabled selected>
+                                Choose order quantity
+                            </option>
+
+                            @for($i = 1; $i <= 5; $i++)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+
+                        </select>
+                    </div>
+
                 </div>
 
+                <!-- ADD TO CART BUTTON -->
+                <button type="submit"
+                    class="w-full mt-6 bg-[#0B1A33] text-white py-3 rounded-lg hover:bg-[#09142A] transition">
 
-                <!-- QUANTITY -->
-                <div>
-                    <label class="block text-sm mb-1 text-gray-600">
-                        Quantity
-                    </label>
+                    Add to Cart
 
-                    <select name="quantity" required class="w-full border rounded px-3 py-2 text-sm">
-                        <option value="" disabled selected>Choose order quantity</option>
+                </button>
 
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+            </form>
 
-                    </select>
-                </div>
-
-            </div>
-
-
-        <!-- ADD TO CART -->
-        <form method="POST" action="{{ route('cart.add') }}" class="mt-6">
-            @csrf
-
-            <button type="submit"
-                class="w-full bg-[#0B1A33] text-white py-3 rounded-lg hover:bg-[#09142A] transition">
-                Add to Cart
-            </button>
-        </form>
+        </div>
 
     </div>
 
@@ -94,46 +119,76 @@
 <div class="border-t border-gray-200 my-12"></div>
 
 <!-- PRODUCT DESCRIPTION -->
-<div>
-    <h2 class="text-3xl font-bold mb-6">Product Description</h2>
+<div class="max-w-6xl mx-auto px-6">
 
-    <p class="text-gray-600 mb-4">Welcome to Merari!</p>
+    <h2 class="text-3xl font-bold mb-6">
+        Product Description
+    </h2>
 
-    <p class="text-gray-600 mb-6"> {{ $product->description }}</p>
-
-    <p class="text-gray-600 mb-10">
-    When choosing Custom Size variation, make sure to message us your preferred
-    bracelet size in DMS or ORDER NOTES!
+    <p class="text-gray-600 mb-4">
+        Welcome to Merari!
     </p>
 
+    <p class="text-gray-600 mb-6">
+        {{ $product->description }}
+    </p>
+
+    <p class="text-gray-600 mb-10">
+        When choosing Custom Size variation, make sure to message us your
+        preferred bracelet size in DMS or ORDER NOTES!
+    </p>
 
     <div class="grid md:grid-cols-2 gap-12">
 
         <!-- PRODUCT INFORMATION -->
         <div>
 
-            <h3 class="font-bold mb-3">Product Information</h3>
+            <h3 class="font-bold mb-3">
+                Product Information
+            </h3>
 
             <ul class="text-gray-600 text-sm space-y-2 list-disc ml-4">
+
                 <li>The accessories are handmade.</li>
-                <li>When we don't have the right amount of materials, there may be adjustments to the bracelet. However, we will inform you
-                    first before making it.
+
+                <li>
+                    When we don't have the right amount of materials,
+                    there may be adjustments to the bracelet. However,
+                    we will inform you first before making it.
                 </li>
-                <li>Our bracelets are made to order. Once the order is placed, then we will make the bracelet.</li>
-                <li>Please measure your wrist size before ordering.</li>
+
+                <li>
+                    Our bracelets are made to order.
+                    Once the order is placed, then we will make the bracelet.
+                </li>
+
+                <li>
+                    Please measure your wrist size before ordering.
+                </li>
+
             </ul>
 
         </div>
 
-
         <!-- CARE GUIDE -->
-            <div>
-                <h3 class="font-semibold mb-3">Bracelet Care Guide</h3>
-                <ul class="text-gray-600 text-sm space-y-2 list-disc ml-4">
-                    <li>DO NOT leave in water for long periods of time. It may result in faded colors.</li>
-                    <li>DO NOT wear while doing water activity/swimming.</li>
-                </ul>
-            </div>
+        <div>
+
+            <h3 class="font-semibold mb-3">
+                Bracelet Care Guide
+            </h3>
+
+            <ul class="text-gray-600 text-sm space-y-2 list-disc ml-4">
+
+                <li>
+                    DO NOT leave in water for long periods of time.
+                    It may result in faded colors.
+                </li>
+
+                <li>
+                    DO NOT wear while doing water activity/swimming.
+                </li>
+
+            </ul>
 
         </div>
 
@@ -144,7 +199,7 @@
 
 <script>
 
-function updatePrice() {
+function updatePrice(){
 
     const variation = document.getElementById("variation");
     const priceDisplay = document.getElementById("displayed-price");

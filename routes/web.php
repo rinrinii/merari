@@ -57,15 +57,103 @@ Route::middleware('guest')->group(function () {
 
 // authenticated routes; visible when logged in
 Route::middleware('auth')->group(function () {
-    Route::view('/cart', 'cart')->name('cart');
+    
+    Route::get('/cart', function () {
+        $cart = session()->get('cart', []);
+        return view('cart', compact('cart'));
+    })->name('cart');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-    // add to cart (temporary)
-    Route::post('/cart/add', function () {
-        return redirect()->route('cart');
+
+    // add to cart
+    Route::post('/cart/add', function (\Illuminate\Http\Request $request) {
+
+        $product = \App\Models\Product::findOrFail($request->product_id);
+
+        $cart = session()->get('cart', []);
+
+        $quantity = $request->quantity ?? 1;
+        $variation = $request->variation;
+
+        $key = $product->id . '-' . $variation;
+
+        if(isset($cart[$key])){
+
+            $cart[$key]['quantity'] += $quantity;
+
+        } else {
+
+            $cart[$key] = [
+                "name" => $product->name,
+                "variation" => $variation,
+                "price" => $product->base_price,
+                "image" => $product->image,
+                "quantity" => $quantity
+            ];
+        }
+
+        session()->put('cart', $cart);
+
+        return back()->with('success','Item successfully added to cart!');
     })->name('cart.add');
+
+
+    // checkout
+    Route::post('/cart/checkout', function () {
+
+        session()->forget('cart');
+
+        return redirect()->route('cart')
+            ->with('success','Order successful! Thank you for your purchase.');
+
+    })->name('cart.checkout');
+
+    // update cart item quantity
+    Route::post('/cart/update', function (\Illuminate\Http\Request $request) {
+        $cart = session()->get('cart', []);
+
+        $key = $request->key;
+        $action = $request->action;
+
+        if(isset($cart[$key])){
+
+            if($action == "increase"){
+                $cart[$key]['quantity']++;
+            }
+
+            if($action == "decrease"){
+                $cart[$key]['quantity']--;
+
+                if($cart[$key]['quantity'] <= 0){
+                    unset($cart[$key]);
+                }
+            }
+
+        }
+
+        session()->put('cart', $cart);
+
+        return redirect()->route('cart');
+
+    })->name('cart.update');
+
+    // remove item from cart
+    Route::post('/cart/remove', function (\Illuminate\Http\Request $request) {
+
+        $cart = session()->get('cart', []);
+
+        if(isset($cart[$request->key])){
+            unset($cart[$request->key]);
+        }
+
+        session()->put('cart', $cart);
+
+        return redirect()->route('cart')->with('success','Item removed from cart.');
+
+    })->name('cart.remove');
+
 
     // logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
